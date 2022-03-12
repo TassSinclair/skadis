@@ -2,7 +2,7 @@ BASE_NAME := ${basename ${FILE_NAME}}
 
 all:
 	for FILE_NAME in *.scad; do \
-	    FILE_NAME=$$FILE_NAME $(MAKE) one ; \
+	    $(MAKE) FILE_NAME=$$FILE_NAME one ; \
 	done
 
 one:
