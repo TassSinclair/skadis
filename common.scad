@@ -8,8 +8,8 @@ default_face_height = 48;
 
 
 module pipe(length = 5, diam = pipe_diam, oversize=3){
-    $fn = 100;
-    translate([0, pipe_diam/2, 0]) {
+    $fn = 80;
+    translate([0, diam/2, 0]) {
         hull() {
             cylinder(d=diam, h=length);
             translate([0, oversize, 0]) {
@@ -47,10 +47,10 @@ module icon_imprint(icon="", size=16) {
 }
     
 
-module pipe_bend(diam = pipe_diam, oversize=3) {
-    $fn=100;
-    rotate([0,-90,0]) {
-        rotate_extrude(angle=90, convexity=10) {
+module pipe_bend(diam = pipe_diam, angle=90, oversize=3) {
+    $fn = 80;
+    rotate([90,00,90]) {
+        rotate_extrude(angle = angle, convexity = 10) {
             translate([diam/2, 0]) {
                 hull() {
                     circle(d=diam);
@@ -61,8 +61,11 @@ module pipe_bend(diam = pipe_diam, oversize=3) {
             }
         }
     }
-    rotate([90,0,0])
-        children();
+    translate([0,0,0]) {
+        rotate([angle,0,0]) {
+            children();
+        }
+    }
 }
 
 module board_hook() {
@@ -87,7 +90,7 @@ module block(length = 5, diam = block_diam, oversize=0){
 }
 
 module block_bend(diam = block_diam, angle = 45, incline = 10, oversize=0) {
-    $fn=100;
+    $fn = 80;
     translate([-diam/2, -incline, 00]) {
         rotate([90,00,90]) {
             rotate_extrude(angle = angle, convexity = 10) {
