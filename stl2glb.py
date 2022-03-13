@@ -10,5 +10,5 @@ for obj in bpy.context.scene.objects:
     obj.select_set(False)
   bpy.ops.object.delete()
 
-bpy.ops.import_mesh.stl(filepath=cwd + "/" + sys.argv[-1])
+bpy.ops.import_mesh.stl(filepath=cwd + "/" + sys.argv[-1] + ".stl")
 bpy.ops.export_scene.gltf(filepath=cwd + "/" + sys.argv[-1] + ".glb")

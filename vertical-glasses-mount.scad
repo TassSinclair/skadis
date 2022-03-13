@@ -1,8 +1,6 @@
 include <common.scad>;
 
 width = 30;
-depth=4;
-wall=3;
 
 hook_x_offset = width / 2;
 
