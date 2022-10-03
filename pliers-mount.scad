@@ -13,10 +13,10 @@ translate([hook_x_offset, default_face_depth, distance_between_hooks]) {
 }
 
 face(width = width) {
-    translate([00, -05, 00]) {
-        rotate([00,00,135 + 90]) {
+    translate([8, -11, 00]) {
+        rotate([00,00,180]) {
             linear_extrude(10) {
-                scale([.2, .2, .2]) {
+                scale([.15, .15, .15]) {
                     import("./pliers.svg");
                 }
             }
