@@ -2,12 +2,12 @@ pipe_diam = 4.5;
 block_diam = 4;
 
 distance_between_hooks = 40;
-default_face_depth = 4;
+default_face_depth = 5;
 default_face_width = 26;
 default_face_height = 48;
 
 
-module pipe(length = 5, diam = pipe_diam, oversize=3){
+module pipe(length = 5, diam = pipe_diam, oversize=0){
     $fn = 80;
     translate([0, diam/2, 0]) {
         hull() {
@@ -22,8 +22,7 @@ module pipe(length = 5, diam = pipe_diam, oversize=3){
     }
 }
 
-module face(icon = "", 
-            width = default_face_width, 
+module face(width = default_face_width, 
             depth = default_face_depth, 
             height = default_face_height) {
     difference() {
@@ -47,7 +46,7 @@ module icon_imprint(icon="", size=16) {
 }
     
 
-module pipe_bend(diam = pipe_diam, angle=90, oversize=3) {
+module pipe_bend(diam = pipe_diam, angle=90, oversize=0) {
     $fn = 80;
     rotate([90,00,90]) {
         rotate_extrude(angle = angle, convexity = 10) {
@@ -72,15 +71,15 @@ module board_hook() {
     hook_depth = 5.5;
     hook_drop = 6;
     rotate([90,0,180]) {
-        pipe(hook_depth) {
-            pipe_bend() {
-                pipe(hook_drop);
+        pipe(length = hook_depth, oversize = 3) {
+            pipe_bend(oversize = 3) {
+                pipe(length = hook_drop,  oversize = 3);
             }
         }
     }
 }
 
-module block(length = 5, diam = block_diam, oversize=0){
+module rect_pipe(length = 5, diam = block_diam, oversize=0){
     translate([-diam/2, 0, 0]) {
         cube([diam, diam + oversize, length]);
     }
@@ -89,7 +88,7 @@ module block(length = 5, diam = block_diam, oversize=0){
     }
 }
 
-module block_bend(diam = block_diam, angle = 45, incline = 10, oversize=0) {
+module rect_pipe_bend(diam = block_diam, angle = 45, incline = 10, oversize=0) {
     $fn = 80;
     translate([-diam/2, -incline, 00]) {
         rotate([90,00,90]) {
@@ -113,9 +112,9 @@ module item_hook(depth_1=7, angle=80, incline=2, depth_2=10) {
     hook_depth = 5.5;
     hook_drop = 6;
     rotate([-90,0,180]) {
-        block(length = depth_1) {
-            block_bend(angle = angle, incline = incline) {
-                block(length = depth_2);
+        rect_pipe(length = depth_1) {
+            rect_pipe_bend(angle = angle, incline = incline) {
+                rect_pipe(length = depth_2);
             }
         }
     }
